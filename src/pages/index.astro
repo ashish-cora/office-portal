@@ -1,10 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/home/Hero.astro';
+import ProductCarousel from '../components/home/ProductCarousel.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import OfficeIntro from '../components/home/OfficeIntro.astro';
 ---
 
 <Layout>
 	<main class="home-page">
-		<h1>Office Portal</h1>
-		<p>Welcome to the Meridian Office Portal. Use the navigation above to explore dashboard, announcements, directory, attendance, leave, calendar, documents, and profile.</p>
+		<Hero />
+		<ProductCarousel />
+		<Testimonials />
+		<OfficeIntro />
 	</main>
 </Layout>

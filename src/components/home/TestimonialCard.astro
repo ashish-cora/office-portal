@@ -1,0 +1,68 @@
+---
+const { testimonial } = Astro.props;
+---
+
+<div class="testimonial-card">
+	<blockquote class="testimonial-quote">“{testimonial.quote}”</blockquote>
+	<div class="testimonial-meta">
+		<p class="testimonial-name">{testimonial.name}</p>
+		<p class="testimonial-title">{testimonial.title}, {testimonial.company}</p>
+	</div>
+	<div class="testimonial-rating" aria-label="Rating {testimonial.rating} out of 5">
+		{[1, 2, 3, 4, 5].map((star) => (
+			<span
+				class={`testimonial-star ${star <= testimonial.rating ? 'testimonial-star--filled' : ''}`}
+				aria-hidden="true"
+			>
+				★
+			</span>
+		))}
+	</div>
+</div>
+
+<style>
+	.testimonial-card {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		padding: var(--space-4);
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.testimonial-quote {
+		margin: 0 0 var(--space-3) 0;
+		font-size: 1rem;
+		font-style: italic;
+		color: var(--color-text);
+		line-height: 1.6;
+	}
+
+	.testimonial-name {
+		margin: 0;
+		font-size: 0.9375rem;
+		font-weight: 600;
+		color: var(--color-text);
+	}
+
+	.testimonial-title {
+		margin: 0 0 var(--space-3) 0;
+		font-size: 0.875rem;
+		color: var(--color-text-muted);
+	}
+
+	.testimonial-rating {
+		display: flex;
+		gap: 4px;
+	}
+
+	.testimonial-star {
+		font-size: 1rem;
+		color: #d1d5db;
+	}
+
+	.testimonial-star--filled {
+		color: #f59e0b;
+	}
+</style>

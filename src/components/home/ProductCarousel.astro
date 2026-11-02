@@ -1,0 +1,229 @@
+---
+import { PRODUCTS } from '../../data/products';
+---
+
+<section class="products" aria-labelledby="products-heading">
+	<div class="products-inner">
+		<div class="products-header">
+			<h2 id="products-heading" class="products-title">Our Products</h2>
+			<p class="products-subtitle">Software development tools built for modern engineering teams.</p>
+		</div>
+
+		<div class="carousel-wrapper">
+			<button
+				class="carousel-btn carousel-btn--prev"
+				id="carousel-prev"
+				aria-label="Previous product"
+			>
+				‹
+			</button>
+			<div class="carousel-track" id="carousel-track">
+				{PRODUCTS.map((product) => (
+					<article class="product-card">
+						<div class="product-image-placeholder" aria-hidden="true">
+							{product.category.charAt(0)}
+						</div>
+						<h3 class="product-name">{product.name}</h3>
+						<p class="product-tagline">{product.tagline}</p>
+						<p class="product-description">{product.description}</p>
+						<span class="product-category">{product.category}</span>
+					</article>
+				))}
+			</div>
+			<button
+				class="carousel-btn carousel-btn--next"
+				id="carousel-next"
+				aria-label="Next product"
+			>
+				›
+			</button>
+		</div>
+	</div>
+</section>
+
+<script>
+	// Vanilla JS carousel enhancement (no component hydration).
+	const track = document.getElementById('carousel-track');
+	const prevBtn = document.getElementById('carousel-prev');
+	const nextBtn = document.getElementById('carousel-next');
+
+	if (track && prevBtn && nextBtn) {
+		const scrollAmount = 320;
+
+		prevBtn.addEventListener('click', () => {
+			track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+		});
+
+		nextBtn.addEventListener('click', () => {
+			track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+		});
+
+		// Keyboard support: arrow keys move focus between product cards.
+		track.addEventListener('keydown', (event) => {
+			if (event.key === 'ArrowRight') {
+				event.preventDefault();
+				track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+			} else if (event.key === 'ArrowLeft') {
+				event.preventDefault();
+				track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+			}
+		});
+	}
+</script>
+
+<style>
+	.products {
+		background: var(--color-bg);
+		border-bottom: 1px solid var(--color-border);
+		padding: var(--space-6) 0;
+	}
+
+	.products-inner {
+		padding: 0 var(--space-4);
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.products-header {
+		text-align: center;
+		margin-bottom: var(--space-6);
+	}
+
+	.products-title {
+		margin: 0 0 var(--space-2) 0;
+		font-size: 1.75rem;
+		font-weight: 700;
+		color: var(--color-text);
+	}
+
+	.products-subtitle {
+		margin: 0;
+		font-size: 1rem;
+		color: var(--color-text-muted);
+	}
+
+	.carousel-wrapper {
+		position: relative;
+	}
+
+	.carousel-track {
+		display: flex;
+		gap: var(--space-4);
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scrollbar-width: thin;
+		padding-bottom: var(--space-4);
+	}
+
+	.carousel-track::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	.carousel-track::-webkit-scrollbar-thumb {
+		background: var(--color-border);
+		border-radius: var(--radius);
+	}
+
+	.product-card {
+		flex: 0 0 auto;
+		width: 280px;
+		scroll-snap-align: start;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		padding: var(--space-4);
+		display: flex;
+		flex-direction: column;
+	}
+
+	.product-image-placeholder {
+		width: 100%;
+		height: 140px;
+		border-radius: var(--radius);
+		background: #e5e7eb;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: #9ca3af;
+		margin-bottom: var(--space-3);
+	}
+
+	.product-name {
+		margin: 0 0 var(--space-2) 0;
+		font-size: 1.125rem;
+		font-weight: 600;
+		color: var(--color-text);
+	}
+
+	.product-tagline {
+		margin: 0 0 var(--space-2) 0;
+		font-size: 0.9375rem;
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.product-description {
+		margin: 0 0 var(--space-3) 0;
+		font-size: 0.875rem;
+		color: var(--color-text-muted);
+		line-height: 1.5;
+		flex: 1;
+	}
+
+	.product-category {
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--color-text-muted);
+	}
+
+	.carousel-btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 40px;
+		height: 40px;
+		border: 1px solid var(--color-border);
+		background: var(--color-surface);
+		border-radius: var(--radius);
+		color: var(--color-text);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.25rem;
+		line-height: 1;
+	}
+
+	.carousel-btn:hover {
+		border-color: var(--color-primary);
+		color: var(--color-primary);
+	}
+
+	.carousel-btn:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
+	.carousel-btn--prev {
+		left: -12px;
+	}
+
+	.carousel-btn--next {
+		right: -12px;
+	}
+
+	@media (max-width: 768px) {
+		.carousel-btn--prev,
+		.carousel-btn--next {
+			display: none;
+		}
+
+		.product-card {
+			width: 240px;
+		}
+	}
+</style>

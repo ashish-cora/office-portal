@@ -16,14 +16,11 @@ export interface FooterTopic {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-	{ label: 'Dashboard', href: '/' },
-	{ label: 'Announcements', href: '/announcements' },
-	{ label: 'Directory', href: '/directory' },
-	{ label: 'Attendance', href: '/attendance' },
-	{ label: 'Leave', href: '/leave' },
-	{ label: 'Calendar', href: '/calendar' },
-	{ label: 'Documents', href: '/documents' },
-	{ label: 'Profile', href: '/profile' },
+	{ label: 'Home', href: '/home' },
+	{ label: 'Services', href: '/services' },
+	{ label: 'Join Meridian', href: '/join' },
+	{ label: 'Resources', href: '/resources' },
+	{ label: 'About us', href: '/about' },
 ];
 
 export const FOOTER_TOPICS: FooterTopic[] = [

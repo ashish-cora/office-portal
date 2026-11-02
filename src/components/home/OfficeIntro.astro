@@ -1,0 +1,52 @@
+<section class="office-intro" aria-labelledby="intro-heading">
+	<div class="office-intro-inner">
+		<div class="office-intro-content">
+			<h2 id="intro-heading" class="office-intro-title">About Meridian Office</h2>
+			<p class="office-intro-description">
+				Meridian Office is a fictional demonstration portal designed to showcase a modern,
+				responsive office intranet built with Astro. It provides a centralized workspace where
+				teams can access announcements, browse the employee directory, track attendance, manage
+				leave requests, view the office calendar, and retrieve internal documents—all from a
+				single, calm, and professional interface.
+			</p>
+			<p class="office-intro-description">
+				This portal is frontend-only with mock data. No real employee information, credentials,
+				or confidential records are stored or transmitted. It is intended to illustrate how a
+				real backend could be integrated later without rewriting the UI.
+			</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	.office-intro {
+		background: var(--color-bg);
+		padding: var(--space-6) 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.office-intro-inner {
+		padding: 0 var(--space-4);
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.office-intro-title {
+		margin: 0 0 var(--space-3) 0;
+		font-size: 1.75rem;
+		font-weight: 700;
+		color: var(--color-text);
+		text-align: center;
+	}
+
+	.office-intro-description {
+		margin: 0 0 var(--space-3) 0;
+		font-size: 1rem;
+		color: var(--color-text-muted);
+		line-height: 1.7;
+		text-align: center;
+		max-width: 640px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>
