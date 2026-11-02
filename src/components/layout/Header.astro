@@ -1,0 +1,257 @@
+---
+import { NAV_ITEMS } from '../../data/navigation';
+type NavItem = (typeof NAV_ITEMS)[number];
+
+const isActive = (href: string, current: string) => {
+	if (href === '/') {
+		return current === '/';
+	}
+	return current.startsWith(href);
+};
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header" id="site-header">
+	<div class="header-inner">
+		<a class="header-brand" href="/">
+			<span class="brand-mark">M</span>
+			<span class="brand-name">Meridian Office Portal</span>
+		</a>
+
+		<button
+			class="header-toggle"
+			id="header-menu-toggle"
+			aria-expanded="false"
+			aria-controls="header-menu"
+			aria-label="Toggle main navigation"
+		>
+			<span class="toggle-icon" aria-hidden="true"></span>
+		</button>
+
+		<nav class="header-nav" id="header-menu">
+			<ul class="nav-list">
+				{NAV_ITEMS.map((item) => {
+					const active = isActive(item.href, currentPath);
+					return (
+						<li class="nav-item">
+							<a
+								class={`nav-link ${active ? 'nav-link--active' : ''}`}
+								href={item.href}
+								aria-current={active ? 'page' : undefined}
+							>
+								{item.label}
+							</a>
+						</li>
+					);
+				})}
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.header {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: var(--color-surface);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.header-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: var(--header-height);
+		padding: 0 var(--space-4);
+	}
+
+	.header-brand {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		color: var(--color-text);
+		font-weight: 700;
+		font-size: 1.125rem;
+		white-space: nowrap;
+	}
+
+	.brand-mark {
+		width: 32px;
+		height: 32px;
+		border-radius: var(--radius);
+		background: var(--color-primary);
+		color: #ffffff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	.header-toggle {
+		display: none;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		padding: 0;
+		border: 1px solid var(--color-border);
+		background: var(--color-surface);
+		border-radius: var(--radius);
+		color: var(--color-text);
+		cursor: pointer;
+	}
+
+	.header-toggle:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
+	.toggle-icon {
+		display: block;
+		width: 20px;
+		height: 2px;
+		background: currentColor;
+		position: relative;
+	}
+
+	.toggle-icon::before,
+	.toggle-icon::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		width: 20px;
+		height: 2px;
+		background: currentColor;
+		transform-origin: center;
+	}
+
+	.toggle-icon::before {
+		top: -6px;
+	}
+
+	.toggle-icon::after {
+		top: 6px;
+	}
+
+	.header-nav {
+		display: flex;
+		align-items: center;
+	}
+
+	.nav-list {
+		display: flex;
+		gap: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.nav-item {
+		display: flex;
+	}
+
+	.nav-link {
+		display: flex;
+		align-items: center;
+		padding: 0 var(--space-3);
+		height: var(--header-height);
+		color: var(--color-text);
+		font-size: 0.9375rem;
+		font-weight: 500;
+		border-bottom: 2px solid transparent;
+	}
+
+	.nav-link:hover {
+		color: var(--color-primary);
+		background: #f9fafb;
+	}
+
+	.nav-link--active {
+		color: var(--color-primary);
+		border-bottom-color: var(--color-primary);
+	}
+
+	.nav-link[aria-current='page'] {
+		color: var(--color-primary);
+		border-bottom-color: var(--color-primary);
+	}
+
+	@media (max-width: 768px) {
+		.header-toggle {
+			display: flex;
+		}
+
+		.header-nav {
+			position: fixed;
+			top: var(--header-height);
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: var(--color-surface);
+			border-top: 1px solid var(--color-border);
+			transform: translateY(100%);
+			opacity: 0;
+			visibility: hidden;
+			transition: transform 0.2s ease, opacity 0.2s ease;
+			overflow-y: auto;
+		}
+
+		.header-nav.nav-open {
+			transform: translateY(0);
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.nav-list {
+			flex-direction: column;
+			padding: var(--space-4);
+		}
+
+		.nav-item {
+			width: 100%;
+		}
+
+		.nav-link {
+			height: auto;
+			padding: var(--space-3) 0;
+			width: 100%;
+			border-bottom: none;
+			border-radius: var(--radius);
+		}
+
+		.nav-link:hover {
+			background: #f9fafb;
+		}
+
+		.nav-link--active,
+		.nav-link[aria-current='page'] {
+			border-bottom: none;
+			background: var(--color-active-bg);
+			color: var(--color-primary);
+		}
+	}
+</style>
+
+<script>
+	// Client-side mobile menu toggle (vanilla JS, no component hydration).
+	const toggle = document.getElementById('header-menu-toggle');
+	const menu = document.getElementById('header-menu');
+
+	if (toggle && menu) {
+		toggle.addEventListener('click', () => {
+			const expanded = toggle.getAttribute('aria-expanded') === 'true';
+			toggle.setAttribute('aria-expanded', String(!expanded));
+			menu.classList.toggle('nav-open');
+		});
+
+		menu.querySelectorAll('a').forEach((link) => {
+			link.addEventListener('click', () => {
+				toggle.setAttribute('aria-expanded', 'false');
+				menu.classList.remove('nav-open');
+			});
+		});
+	}
+</script>
