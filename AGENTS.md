@@ -216,3 +216,42 @@ Consult these guides before working on related tasks:
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+
+
+
+
+
+
+
+# Automatic rebuild through webhooks
+You can also automate the rebuilding process.
+
+This is especially useful when your website uses a CMS (Content Management System).
+
+Imagine you have an admin panel where you publish company news.
+
+The workflow would be:
+Administrator publishes news
+
+CMS sends a webhook
+
+Notifies the deployment platform
+
+Automatic Astro build
+
+Fetches the latest content and generates HTML
+
+Automatic deployment
+
+Updated static website becomes available
+
+
+For example:
+1. You host Astro on Netlify or Vercel.
+2. Your CMS stores company news.
+3. An administrator publishes new content.
+4. The CMS triggers a deployment webhook.
+5. The hosting platform rebuilds and deploys Astro.
+You don't need to manually run npm run build or deploy every time.
+
+However, this still involves rebuilding and deploying. The difference is that the process is automated.

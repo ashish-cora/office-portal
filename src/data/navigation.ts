@@ -18,6 +18,7 @@ export interface FooterTopic {
 export const NAV_ITEMS: NavItem[] = [
 	{ label: 'Home', href: '/home' },
 	{ label: 'Services', href: '/services' },
+	{ label: 'News', href: '/news' },
 	{ label: 'Join Meridian', href: '/join' },
 	{ label: 'Resources', href: '/resources' },
 	{ label: 'About us', href: '/about' },

@@ -1,0 +1,144 @@
+﻿---
+interface Props {
+	image?: string;
+	name: string;
+	tagline: string;
+	description: string;
+	category?: string;
+}
+
+const { image, name, tagline, description, category } = Astro.props;
+---
+
+<article class="service-card">
+	<figure class="service-image">
+		{image ? (
+			<img src={image} alt={name} loading="lazy" />
+		) : (
+			<div class="service-image-placeholder" aria-hidden="true">
+				<span class="placeholder-label">Service image</span>
+			</div>
+		)}
+	</figure>
+
+	<div class="service-content">
+		{category && <span class="service-category">{category}</span>}
+		<h3 class="service-name">{name}</h3>
+		<p class="service-tagline">{tagline}</p>
+		<p class="service-description">{description}</p>
+	</div>
+</article>
+
+<style>
+	.service-card {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.service-image {
+		margin: 0;
+		width: 100%;
+		height: 200px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #e5e7eb;
+		border-bottom: 1px solid var(--color-border);
+		position: relative;
+	}
+
+	.service-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.service-image-placeholder {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		color: #9ca3af;
+		font-size: 0.875rem;
+		font-weight: 500;
+	}
+
+	.placeholder-label {
+		margin-bottom: var(--space-2);
+		font-size: 1rem;
+		font-weight: 600;
+		color: #6b7280;
+	}
+
+	.service-image-caption {
+		position: absolute;
+		bottom: var(--space-3);
+		left: var(--space-3);
+		right: var(--space-3);
+		font-size: 0.75rem;
+		color: #4b5563;
+		text-align: center;
+		background: rgba(255, 255, 255, 0.85);
+		padding: var(--space-2);
+		border-radius: var(--radius);
+	}
+
+	.service-image-caption code {
+		font-size: 0.7rem;
+		color: var(--color-primary);
+		word-break: break-all;
+	}
+
+	.service-content {
+		padding: var(--space-4);
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	.service-category {
+		margin: 0 0 var(--space-2) 0;
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--color-text-muted);
+	}
+
+	.service-name {
+		margin: 0 0 var(--space-2) 0;
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: var(--color-text);
+	}
+
+	.service-tagline {
+		margin: 0 0 var(--space-3) 0;
+		font-size: 0.9375rem;
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.service-description {
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--color-text-muted);
+		line-height: 1.6;
+		flex: 1;
+	}
+
+	@media (max-width: 640px) {
+		.service-image {
+			height: 160px;
+		}
+	}
+</style>
+

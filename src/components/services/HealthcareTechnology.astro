@@ -1,0 +1,10 @@
+﻿---
+import { SERVICES } from '../../data/services';
+import ServiceCard from './ServiceCard.astro';
+
+const service = SERVICES.find((s) => s.id === 'healthcare-technology');
+---
+
+<ServiceCard
+	{...service}
+/>
