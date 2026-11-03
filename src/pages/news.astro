@@ -1,0 +1,72 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import { NEWS } from '../data/news';
+import NewsCard from '../components/news/NewsCard.astro';
+---
+
+<Layout>
+	<section class="news-page" aria-labelledby="news-heading">
+		<div class="news-inner">
+			<div class="news-header">
+				<h1 id="news-heading" class="news-title">News &amp; Announcements</h1>
+				<p class="news-subtitle">Latest updates from Meridian Office Portal.</p>
+			</div>
+
+			<div class="news-grid">
+				{NEWS.map((article) => (
+					<NewsCard article={article} />
+				))}
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.news-page {
+		background: var(--color-bg);
+		padding: var(--space-6) 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.news-inner {
+		padding: 2rem var(--space-4);
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.news-header {
+		text-align: center;
+		margin-bottom: var(--space-6);
+	}
+
+	.news-title {
+		margin: 0 0 var(--space-2) 0;
+		font-size: 2rem;
+		font-weight: 700;
+		color: var(--color-text);
+	}
+
+	.news-subtitle {
+		margin: 0;
+		font-size: 1rem;
+		color: var(--color-text-muted);
+	}
+
+	.news-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-4);
+	}
+
+	@media (min-width: 768px) {
+		.news-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.news-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>

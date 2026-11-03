@@ -1,0 +1,110 @@
+﻿---
+interface Props {
+	article: {
+		id: string;
+		slug: string;
+		title: string;
+		excerpt: string;
+		date: string;
+		author: string;
+		category: string;
+	};
+}
+
+const { article } = Astro.props;
+---
+
+<article class="news-card">
+	<a href={"/news/" + article.slug} class="news-card-link">
+		<div class="news-card-meta">
+			<span class="news-card-category">{article.category}</span>
+			<time class="news-card-date" datetime={article.date}>{article.date}</time>
+		</div>
+		<h3 class="news-card-title">{article.title}</h3>
+		<p class="news-card-excerpt">{article.excerpt}</p>
+	</a>
+</article>
+
+<style>
+	.news-card {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.news-card-link {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.news-card-link:hover {
+		background: var(--color-active-bg);
+	}
+
+	.news-card-link:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: -2px;
+	}
+
+	.news-card-meta {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		padding: var(--space-3) var(--space-4);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.news-card-category {
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--color-primary);
+		background: var(--color-active-bg);
+		padding: 0.125rem var(--space-2);
+		border-radius: var(--radius);
+	}
+
+	.news-card-date {
+		font-size: 0.8125rem;
+		color: var(--color-text-muted);
+		margin-left: auto;
+	}
+
+	.news-card-title {
+		margin: 0;
+		padding: var(--space-4) var(--space-4) var(--space-2) var(--space-4);
+		font-size: 1.125rem;
+		font-weight: 700;
+		color: var(--color-text);
+		line-height: 1.4;
+	}
+
+	.news-card-excerpt {
+		margin: 0;
+		padding: 0 var(--space-4) var(--space-4) var(--space-4);
+		font-size: 0.875rem;
+		color: var(--color-text-muted);
+		line-height: 1.6;
+		flex: 1;
+	}
+
+	@media (max-width: 640px) {
+		.news-card-meta {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--space-1);
+		}
+
+		.news-card-date {
+			margin-left: 0;
+		}
+	}
+</style>
