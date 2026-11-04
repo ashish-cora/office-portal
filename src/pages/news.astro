@@ -1,7 +1,9 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
-import { NEWS } from '../data/news';
+import { getNewsOrFallback } from '../lib/articles';
 import NewsCard from '../components/news/NewsCard.astro';
+
+const articles = await getNewsOrFallback();
 ---
 
 <Layout>
@@ -13,7 +15,7 @@ import NewsCard from '../components/news/NewsCard.astro';
 			</div>
 
 			<div class="news-grid">
-				{NEWS.map((article) => (
+				{articles.map((article) => (
 					<NewsCard article={article} />
 				))}
 			</div>

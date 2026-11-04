@@ -1,16 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { NEWS } from '../../data/news';
+import { PortableText } from '@portabletext/astro';
+import { getNewsOrFallback } from '../../lib/articles';
 
-export function getStaticPaths() {
-	return NEWS.map((article) => ({
+export async function getStaticPaths() {
+	const articles = await getNewsOrFallback();
+	return articles.map((article) => ({
 		params: { slug: article.slug },
 	}));
 }
 
 const { slug } = Astro.params;
 
-const article = NEWS.find((a) => a.slug === slug);
+const articles = await getNewsOrFallback();
+const article = articles.find((a) => a.slug === slug);
 ---
 
 <Layout>
@@ -23,9 +26,7 @@ const article = NEWS.find((a) => a.slug === slug);
 				<p class="news-article-author">By {article.author}</p>
 			</header>
 			<div class="news-article-content">
-				{article.content.split('\n\n').map((paragraph) => (
-					<p>{paragraph}</p>
-				))}
+				<PortableText value={article.content} />
 			</div>
 			<a href="/news" class="news-article-back">&#8592; Back to all news</a>
 		</article>
